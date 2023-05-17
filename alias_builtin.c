@@ -1,7 +1,8 @@
 #include "shell.h"
-#include <string.h>
 
-// Function prototypes
+/*
+ * The function prototypes
+ */
 void handle_command(info_t *info, char *command);
 void execute_command(info_t *info);
 void execute_commands_separated(info_t *info, char *commands);
@@ -20,8 +21,10 @@ int main(void)
         printf("$ ");  // Display the prompt
         command = NULL;
 
-        // Read the command line
-        ssize_t read = getline(&command, &(size_t){0}, stdin);
+        /*
+	 *Read the command line
+	 */
+	ssize_t read = getline(&command, &(size_t){0}, stdin);
         if (read == -1) {
             if (feof(stdin)) {
                 printf("\n");  // Print a newline for Ctrl+D (EOF)
