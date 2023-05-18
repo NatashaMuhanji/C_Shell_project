@@ -2,10 +2,11 @@
 
 int main(void)
 {
-    info_t info = INFO_INIT;
-    char *command;
+	info_t info = INFO_INIT;
+	char *command;
 
-    while (1) {
+    while (1)
+    {
         printf("$ ");  // Display the prompt
         command = NULL;
 
