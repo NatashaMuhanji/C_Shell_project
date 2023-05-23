@@ -19,9 +19,24 @@ This is a SimpleShell project written in C. It implements a basic shell that all
 ### Clone the Repository
 
 ```shell
-git clone <repository-url>
+git clone <repository-url> 
 
+Compile the Code
+cd SimpleShell
+gcc -Wall -Werror -Wextra -pedantic *.c -o simpleshell
 
+Run the Shell
+./simpleshell
 
+Usage
+Once the shell is running, you can enter commands just like in a regular shell. Some examples include:
 
+Executing a program: ls -l
+Changing directories: cd /path/to/directory
+Exiting the shell: exit
+Customization
+You can customize the shell by modifying the source code. Feel free to explore the code and add additional features or functionality according to your needs.
 
+Contributors
+- Anncarl Mwendwa
+- Natasha Muhanji
