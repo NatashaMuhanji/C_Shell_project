@@ -18,7 +18,5 @@ gcc -Wall -Werror -Wextra -pedantic *.c -o shell
 
 
 To run the shell, execute the compiled binary:
-
-```shell
 ./shell
 
