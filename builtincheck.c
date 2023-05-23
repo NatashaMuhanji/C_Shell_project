@@ -1,20 +1,18 @@
 #include "shell.h"
 
-
 /**
  * check_build - checks if the command is a built-in
  * @arv: array of arguments
  * Return: pointer to function that takes arv and returns void
  */
-
 void (*check_build(char **arv))(char **arv)
 {
 	int i, j;
 	mybuild T[] = {
-		{"exit", exit_shell},
-		{"env", print_env},
-		{"setenv", set_env},
-		{"unsetenv", unset_env},
+		{"exit", exitt},
+		{"env", env},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
 		{NULL, NULL}
 	};
 
