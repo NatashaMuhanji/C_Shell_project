@@ -2,13 +2,12 @@
 
 
 /**
- * env -prints the current environment when prompt entered
- * @arv: this is the array of arguments
+ * print_env - prints the current environment
+ * @arv: array of arguments
  */
 
-void env(char **arv __attribute__ ((unused)))
+void print_env(char **arv __attribute__ ((unused)))
 {
-
 	int i;
 
 	for (i = 0; environ[i]; i++)
@@ -16,15 +15,14 @@ void env(char **arv __attribute__ ((unused)))
 		_puts(environ[i]);
 		_puts("\n");
 	}
-
 }
 
 /**
- * _setenv - Initialize a new environment variable, or modify an existing one
+ * set_env - Initialize a new environment variable, or modify an existing one
  * @arv: array of entered words
  */
 
-void _setenv(char **arv)
+void set_env(char **arv)
 {
 	int i, j, k;
 
@@ -61,19 +59,17 @@ void _setenv(char **arv)
 	}
 	if (!environ[i])
 	{
-
 		environ[i] = concat_all(arv[1], "=", arv[2]);
 		environ[i + 1] = '\0';
-
 	}
 }
 
 /**
- * _unsetenv - Remove an environment variable
+ * unset_env - Remove an environment variable
  * @arv: array of entered words
  */
 
-void _unsetenv(char **arv)
+void unset_env(char **arv)
 {
 	int i, j;
 
@@ -110,9 +106,9 @@ void _unsetenv(char **arv)
 }
 
 /**
- * _atoi - converts string into integer
- *@s: points string
- *Return: this returns the integer
+ * _atoi - converts a string into an integer
+ *@s: pointer to a string
+ *Return: the integer
  */
 
 int _atoi(char *s)
@@ -138,11 +134,11 @@ int _atoi(char *s)
 }
 
 /**
- * exitt - exits the shell with or without a return of status n
+ * exit_shell - exits the shell with or without a return of status n
  * @arv: array of words of the entered line
  */
 
-void exitt(char **arv)
+void exit_shell(char **arv)
 {
 	int i, n;
 
