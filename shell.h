@@ -2,17 +2,15 @@
 #define SHELL_H
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/wait.h>
-#include <sys/stat.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <errno.h>
 #include <stddef.h>
+#include <sys/stat.h>
 #include <signal.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <sys/types.h>
 
 int _putchar(char c);
 void _puts(char *str);
@@ -21,31 +19,33 @@ char *_strdup(char *str);
 char *concat_all(char *name, char *sep, char *value);
 
 char **splitstring(char *str, const char *delim);
-void execute(char **argv);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void _execute_(char **argv);
+void *_realloc_(void *ptr, unsigned int old_size, unsigned int new_size);
+
 
 extern char **environ;
 
 /**
- * struct list_path - Linked list containing PATH directories
+ * struct _listpath - Linked list containing PATH directories
  * @dir: directory in path
  * @p: pointer to next node
  */
-typedef struct list_path
+typedef struct _listpath
 {
 	char *dir;
-	struct list_path *p;
-} list_path;
+	struct _listpath *p;
+} _listpath;
+
 
 char *_getenv(const char *name);
-list_path *add_node_end(list_path **head, char *str);
-list_path *linkpath(char *path);
-char *_which(char *filename);
+_listpath *add_node_end(_listpath **head, char *str);
+_listpath *linkpath(char *path);
+char *_which(char *filename, _listpath *head);
 
 /**
- * struct mybuild - pointer to function with corresponding build-in command
- * @name: the name of the build-in command
- * @func: a function pointer that executes the build-in command
+ * struct mybuild - pointer to function with corresponding buildin command
+ * @name: buildin command
+ * @func: _execute_ the buildin command
  */
 typedef struct mybuild
 {
@@ -53,7 +53,7 @@ typedef struct mybuild
 	void (*func)(char **);
 } mybuild;
 
-void (*check_build(char **arv))(char **arv);
+void(*checkbuild(char **arv))(char **arv);
 int _atoi(char *s);
 void exitt(char **arv);
 void env(char **arv);
@@ -61,7 +61,8 @@ void _setenv(char **arv);
 void _unsetenv(char **arv);
 
 void freearv(char **arv);
-void free_list(list_path *head);
+void free_list(_listpath *head);
 
-#endif /* SHELL_H */
+
+#endif
 
