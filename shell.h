@@ -1,5 +1,6 @@
 #include "shell.h"
 
+<<<<<<< HEAD
 /*
  * int line_number = 1, status = 0;
  * char *sname = NULL;
@@ -12,13 +13,33 @@
 	size_t buffer_size = 1;
 	char *buffer = NULL, *buffer_ptr, *buffer_tmp;
 	char **arguments = NULL;
+=======
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <stddef.h>
+#include <sys/stat.h>
+#include <signal.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <sys/types.h>
+>>>>>>> 45b61f670ea4a90594807eb394a7b0fe2d9f1eb1
 
 	sname = strdup(*av);
 
+<<<<<<< HEAD
 	environ = array_cpy(environ, list_len(environ, NULL));
+=======
+char **splitstring(char *str, const char *delim);
+void _execute_(char **argv);
+void *_realloc_(void *ptr, unsigned int old_size, unsigned int new_size);
+
+>>>>>>> 45b61f670ea4a90594807eb394a7b0fe2d9f1eb1
 
 	signal(SIGINT, SIG_IGN);
 
+<<<<<<< HEAD
 	buffer = malloc(1);
 	if (buffer == NULL)
 		exit(EXIT_FAILURE);
@@ -87,6 +108,48 @@ int main(void)
 	size_t bf_size = 0;
 	char *entry = NULL, *arguments[20];
 	int counter = 1, vf_stat = 0, exist_stat = 0, exit_stat = 0, blt_stat = 0;
+=======
+/**
+ * struct _listpath - Linked list containing PATH directories
+ * @dir: directory in path
+ * @p: pointer to next node
+ */
+typedef struct _listpath
+{
+	char *dir;
+	struct _listpath *p;
+} _listpath;
+
+
+char *_getenv(const char *name);
+_listpath *add_node_end(_listpath **head, char *str);
+_listpath *linkpath(char *path);
+char *_which(char *filename, _listpath *head);
+
+/**
+ * struct mybuild - pointer to function with corresponding buildin command
+ * @name: buildin command
+ * @func: _execute_ the buildin command
+ */
+typedef struct mybuild
+{
+	char *name;
+	void (*func)(char **);
+} mybuild;
+
+void(*checkbuild(char **arv))(char **arv);
+int _atoi(char *s);
+void exitt(char **arv);
+void env(char **arv);
+void _setenv(char **arv);
+void _unsetenv(char **arv);
+
+void freearv(char **arv);
+void free_list(_listpath *head);
+
+
+#endif
+>>>>>>> 45b61f670ea4a90594807eb394a7b0fe2d9f1eb1
 
 	_printp("$ ", 2);
 	bytes_rd = getline(&entry, &bf_size, stdin);

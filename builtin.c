@@ -1,13 +1,61 @@
 #include "shell.h"
 
+/**
+ * exitt - exits the shell with or without a return of status n
+ * @arv: array of words of the entered line
+ */
+void exitt(char **arv)
+{
+	int i, n;
+
+	if (arv[1])
+	{
+		n = _atoi(arv[1]);
+		if (n <= -1)
+			n = 2;
+		freearv(arv);
+		exit(n);
+	}
+	for (i = 0; arv[i]; i++)
+		free(arv[i]);
+	free(arv);
+	exit(0);
+}
 
 /**
- * print_env - prints the current environment
+ * _atoi - converts a string into an integer
+ *@s: pointer to a string
+ *Return: the integer
+ */
+int _atoi(char *s)
+{
+	int i, integer, sign = 1;
+
+	i = 0;
+	integer = 0;
+	while (!((s[i] >= '0') && (s[i] <= '9')) && (s[i] != '\0'))
+	{
+		if (s[i] == '-')
+		{
+			sign = sign * (-1);
+		}
+		i++;
+	}
+	while ((s[i] >= '0') && (s[i] <= '9'))
+	{
+		integer = (integer * 10) + (sign * (s[i] - '0'));
+		i++;
+	}
+	return (integer);
+}
+
+/**
+ * env - prints the current environment
  * @arv: array of arguments
  */
-
-void print_env(char **arv __attribute__ ((unused)))
+void env(char **arv __attribute__ ((unused)))
 {
+
 	int i;
 
 	for (i = 0; environ[i]; i++)
@@ -15,14 +63,14 @@ void print_env(char **arv __attribute__ ((unused)))
 		_puts(environ[i]);
 		_puts("\n");
 	}
+
 }
 
 /**
- * set_env - Initialize a new environment variable, or modify an existing one
+ * _setenv - Initialize a new environ variable, or modify an existing one
  * @arv: array of entered words
  */
-
-void set_env(char **arv)
+void _setenv(char **arv)
 {
 	int i, j, k;
 
@@ -59,17 +107,18 @@ void set_env(char **arv)
 	}
 	if (!environ[i])
 	{
+
 		environ[i] = concat_all(arv[1], "=", arv[2]);
 		environ[i + 1] = '\0';
+
 	}
 }
 
 /**
- * unset_env - Remove an environment variable
+ * _unsetenv - Remove an environ variable
  * @arv: array of entered words
  */
-
-void unset_env(char **arv)
+void _unsetenv(char **arv)
 {
 	int i, j;
 
@@ -105,53 +154,3 @@ void unset_env(char **arv)
 	}
 }
 
-/**
- * _atoi - converts a string into an integer
- *@s: pointer to a string
- *Return: the integer
- */
-
-int _atoi(char *s)
-{
-	int i, integer, sign = 1;
-
-	i = 0;
-	integer = 0;
-	while (!((s[i] >= '0') && (s[i] <= '9')) && (s[i] != '\0'))
-	{
-		if (s[i] == '-')
-		{
-			sign = sign * (-1);
-		}
-		i++;
-	}
-	while ((s[i] >= '0') && (s[i] <= '9'))
-	{
-		integer = (integer * 10) + (sign * (s[i] - '0'));
-		i++;
-	}
-	return (integer);
-}
-
-/**
- * exit_shell - exits the shell with or without a return of status n
- * @arv: array of words of the entered line
- */
-
-void exit_shell(char **arv)
-{
-	int i, n;
-
-	if (arv[1])
-	{
-		n = _atoi(arv[1]);
-		if (n <= -1)
-			n = 2;
-		freearv(arv);
-		exit(n);
-	}
-	for (i = 0; arv[i]; i++)
-		free(arv[i]);
-	free(arv);
-	exit(0);
-}

@@ -1,5 +1,6 @@
 #include "shell.h"
 
+
 /**
  * _getenv - gets the value of the global variable
  * @name: name of the global variable
@@ -31,106 +32,118 @@ char *_getenv(const char *name)
 			}
 		}
 	}
-	return (NULL);
+	return (0);
+}
+
+
+/**
+ * add_node_end - adds a new node at the end of a list_t list
+ * @head: pointer to pointer to our linked list
+ * @str: pointer to string in previous first node
+ * Return: address of the new element/node
+ */
+
+_listpath *add_node_end(_listpath **head, char *str)
+{
+
+	_listpath *tmp;
+	_listpath *new;
+
+	new = malloc(sizeof(_listpath));
+
+	if (!new || !str)
+	{
+		return (NULL);
+	}
+
+	new->dir = str;
+
+	new->p = '\0';
+	if (!*head)
+	{
+		*head = new;
+	}
+	else
+	{
+		tmp = *head;
+
+		while (tmp->p)
+		{
+
+			tmp = tmp->p;
+		}
+
+		tmp->p = new;
+	}
+
+	return (*head);
+}
+
+
+/**
+ * linkpath - creates a linked list for path directories
+ * @path: string of path value
+ * Return: pointer to the created linked list
+ */
+_listpath *linkpath(char *path)
+{
+	_listpath *head = '\0';
+	char *token;
+	char *cpath = _strdup(path);
+
+	token = strtok(cpath, ":");
+	while (token)
+	{
+		head = add_node_end(&head, token);
+		token = strtok(NULL, ":");
+	}
+
+	return (head);
 }
 
 /**
  * _which - finds the pathname of a filename
  * @filename: name of file or command
+ * @head: head of linked list of path directories
  * Return: pathname of filename or NULL if no match
  */
-char *_which(char *filename)
+char *_which(char *filename, _listpath *head)
 {
 	struct stat st;
 	char *string;
-	char *path = _getenv("PATH");
-	char *token;
 
-	if (!path)
-		return (NULL);
+	_listpath *tmp = head;
 
-	token = strtok(path, ":");
-	while (token)
+	while (tmp)
 	{
-		string = concat_all(token, "/", filename);
+
+		string = concat_all(tmp->dir, "/", filename);
 		if (stat(string, &st) == 0)
+		{
 			return (string);
+		}
 		free(string);
-		token = strtok(NULL, ":");
+		tmp = tmp->p;
 	}
 
 	return (NULL);
 }
 
 /**
- * _strlen - returns the length of a string
- * @s: pointer to the string
- * Return: the length of the string
+ * free_list - frees a list_t
+ *@head: pointer to our linked list
  */
-int _strlen(char *s)
+void free_list(_listpath *head)
 {
-	int len = 0;
+	_listpath *storage;
 
-	while (s && s[len])
-		len++;
+	while (head)
+	{
+		storage = head->p;
+		free(head->dir);
+		free(head);
+		head = storage;
+	}
 
-	return (len);
-}
-
-/**
- * _strdup - returns a pointer to a newly allocated space in memory, which
- * contains a copy of the string given as a parameter
- * @str: pointer to a string
- * Return: pointer to a string
- */
-char *_strdup(char *str)
-{
-	char *new;
-	int i, len;
-
-	if (!str)
-		return (NULL);
-
-	len = _strlen(str);
-	new = malloc(sizeof(char) * (len + 1));
-	if (!new)
-		return (NULL);
-
-	for (i = 0; i <= len; i++)
-		new[i] = str[i];
-
-	return (new);
-}
-
-/**
- * concat_all - concatenates three strings into a newly allocated memory
- * @name: first string
- * @sep: second string
- * @value: third string
- * Return: pointer to the new string
- */
-char *concat_all(char *name, char *sep, char *value)
-{
-	char *result;
-	int len1, len2, len3, i, j;
-
-	len1 = _strlen(name);
-	len2 = _strlen(sep);
-	len3 = _strlen(value);
-
-	result = malloc(sizeof(char) * (len1 + len2 + len3 + 1));
-	if (!result)
-		return (NULL);
-
-	for (i = 0; i < len1; i++)
-		result[i] = name[i];
-
-	for (j = 0; j < len2; j++)
-		result[i + j] = sep[j];
-
-	for (j = 0; j <= len3; j++)
-		result[i + j + len2] = value[j];
-
-	return (result);
 }
 

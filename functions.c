@@ -2,13 +2,13 @@
 
 
 /**
- * split_string - splits a string and makes it an array of pointers to words
+ * splitstring - splits a string and makes it an array of pointers to words
  * @str: the string to be split
  * @delim: the delimiter
  * Return: array of pointers to words
  */
 
-char **split_string(char *str, const char *delim)
+char **splitstring(char *str, const char *delim)
 {
 	int i, wn;
 	char **array;
@@ -38,7 +38,7 @@ char **split_string(char *str, const char *delim)
 	while (token)
 	{
 		token = strtok(NULL, delim);
-		array = _realloc(array, (sizeof(char *) * (wn - 1)), (sizeof(char *) * wn));
+		array = _realloc_(array, (sizeof(char *) * (wn - 1)), (sizeof(char *) * wn));
 		array[i] = _strdup(token);
 		i++;
 		wn++;
@@ -48,12 +48,13 @@ char **split_string(char *str, const char *delim)
 }
 
 /**
- * execute - executes a command
+ * _execute_ - _execute_s a command
  * @argv: array of arguments
  */
 
-void execute(char **argv)
+void _execute_(char **argv)
 {
+
 	int d, status;
 
 	if (!argv || !argv[0])
@@ -66,24 +67,25 @@ void execute(char **argv)
 	if (d == 0)
 	{
 		execve(argv[0], argv, environ);
-		perror(argv[0]);
+			perror(argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	wait(&status);
 }
 
 /**
- * _realloc - reallocates memory block
+ * _realloc_ - Reallocates memory block
  * @ptr: previous pointer
  * @old_size: old size of previous pointer
  * @new_size: new size for our pointer
- * Return: New resized pointer
+ * Return: New resized Pointer
  */
 
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void *_realloc_(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	char *new;
 	char *old;
+
 	unsigned int i;
 
 	if (ptr == NULL)
@@ -121,11 +123,11 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 }
 
 /**
- * free_arv - frees the array of pointers arv
- * @arv: array of pointers
+ * freearv - frees the array of pointers arv
+ *@arv: array of pointers
  */
 
-void free_arv(char **arv)
+void freearv(char **arv)
 {
 	int i;
 

@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * check_build - checks if the command is a built-in
- * @arv: array of arguments
- * Return: pointer to function that takes arv and returns void
- */
-void (*check_build(char **arv))(char **arv)
+* checkbuild - checks if the command is a buildin
+* @arv: array of arguments
+* Return: pointer to function that takes arv and returns void
+*/
+void(*checkbuild(char **arv))(char **arv)
 {
 	int i, j;
 	mybuild T[] = {
@@ -30,6 +30,6 @@ void (*check_build(char **arv))(char **arv)
 				return (T[i].func);
 		}
 	}
-	return (NULL);
+	return (0);
 }
 

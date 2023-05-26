@@ -8,10 +8,18 @@
  * array of input
  * Return: 0, or anothe rnumber
 {
+<<<<<<< HEAD
 	int read_bytes, separated = FALSE, a;
 	size_t buffer_size = 1;
 	char *buffer = NULL, *buffer_ptr, *buffer_tmp;
 	char **arguments = NULL;
+=======
+	if (sig_num == SIGINT)
+	{
+		_puts("\n#NatashaAnncarl$ ");
+	}
+}
+>>>>>>> 45b61f670ea4a90594807eb394a7b0fe2d9f1eb1
 
 	sname = strdup(*av);
 
@@ -73,7 +81,14 @@
 	free_array(environ);
 	free(sname);
 
+<<<<<<< HEAD
 	return (status % 256);
+=======
+void _isatty(void)
+{
+	if (isatty(STDIN_FILENO))
+		_puts("#NatashaAnncarl$ ");
+>>>>>>> 45b61f670ea4a90594807eb394a7b0fe2d9f1eb1
 }
 #include "shell.h"
 */
@@ -83,15 +98,24 @@
  */
 int main(void)
 {
+<<<<<<< HEAD
 	ssize_t bytes_rd = 0;
 	size_t bf_size = 0;
 	char *entry = NULL, *arguments[20];
 	int counter = 1, vf_stat = 0, exist_stat = 0, exit_stat = 0, blt_stat = 0;
+=======
+	ssize_t len = 0;
+	char *buff = NULL, *value, *pathname, **arv;
+	size_t size = 0;
+	_listpath *head = '\0';
+	void (*f)(char **);
+>>>>>>> 45b61f670ea4a90594807eb394a7b0fe2d9f1eb1
 
 	_printp("$ ", 2);
 	bytes_rd = getline(&entry, &bf_size, stdin);
 	while (bytes_rd != -1)
 	{
+<<<<<<< HEAD
 		if (*entry != '\n')
 		{
 			fill_args(entry, arguments);
@@ -112,6 +136,32 @@ int main(void)
 				}
 				else
 					exit_stat = exec(arguments), free(entry);
+=======
+		_isatty();
+		len = getline(&buff, &size, stdin);
+		_EOF(len, buff);
+		arv = splitstring(buff, " \n");
+		if (!arv || !arv[0])
+			_execute_(arv);
+		else
+		{
+			value = _getenv("PATH");
+			head = linkpath(value);
+			pathname = _which(arv[0], head);
+			f = checkbuild(arv);
+			if (f)
+			{
+				free(buff);
+				f(arv);
+			}
+			else if (!pathname)
+				_execute_(arv);
+			else if (pathname)
+			{
+				free(arv[0]);
+				arv[0] = pathname;
+				_execute_(arv);
+>>>>>>> 45b61f670ea4a90594807eb394a7b0fe2d9f1eb1
 			}
 			else
 				free(entry);
@@ -124,3 +174,4 @@ int main(void)
 	last_free(entry);
 	return (exit_stat);
 }
+
