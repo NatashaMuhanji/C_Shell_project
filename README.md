@@ -30,7 +30,7 @@ gcc -Wall -Werror -Wextra -pedantic *.c -o simpleshell
 
 ### Run the Shell
 ```
-./simpleshell
+./hsh
 ```
 
 ### Usage
