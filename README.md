@@ -19,7 +19,7 @@ This is a SimpleShell project written in C. It implements a basic shell that all
 ### Clone the Repository
 
 ```shell
-git clone <repository-url> 
+git clone https://github.com/NatashaMuhanji/simple_shell.git 
 ```
 
 ### Compile the Code
